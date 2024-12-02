@@ -164,7 +164,7 @@ body {
 }
 
 #temp-info {
-  width: 70%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -187,10 +187,18 @@ body {
   font-weight: 600;
 }
 #time-date {
-  width: 30%;
+  width: 50%;
   font-size: 40px;
   padding: 110px 0 0 0;
   box-sizing: border-box;
+}
+#city_name {
+  font-size: 50px;
+  font-weight: bolder;
+}
+#timedateP {
+  font-size: 40px;
+  padding: 0 0 0 100px;
 }
 #time-date span {
   font-size: 20px;
@@ -208,7 +216,7 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 40%;
+  height: 30%;
 }
 
 #hum-win-vis div {
@@ -217,6 +225,7 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
 #future div {
   display: flex;
   height: 100px;
@@ -227,6 +236,10 @@ body {
 #future p {
   font-size: 20px;
   position: relative;
+}
+#future img {
+  width: 50px;
+  height: 50px;
 }
 #hum-win-vis p {
   font-size: 20px;

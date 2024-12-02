@@ -18,7 +18,7 @@
           <div id="search-option-container">
             <form id="search">
               <i id="globe" class="fa-solid fa-globe"></i>
-              <input type="text" id="search-input" />
+              <input type="text" id="search-input" autocomplete="off" />
               <button
                 type="submit"
                 id="magnify"
@@ -37,7 +37,10 @@
                 with a Heavy Rain
               </p>
             </div>
-            <p id="time-date">03:24:45 <span>Friday, Jan 3</span></p>
+            <div id="time-date">
+              <p id="city_name">Columbus</p>
+              <p id="timedateP">03:24:45 <span>Friday, Jan 3</span></p>
+            </div>
           </div>
           <div id="hum-win-vis">
             <div id="wind">
@@ -50,7 +53,7 @@
               <i class="fa-solid fa-droplet"></i>
               <p>Humity</p>
             </div>
-            <div id="Visiblity">
+            <div id="visiblity">
               <p>0.5<span>km</span></p>
               <i class="fa-solid fa-eye"></i>
               <p>Visiblity</p>
