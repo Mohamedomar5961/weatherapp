@@ -1,194 +1,229 @@
-/*
-@import url("https://fonts.googleapis.com/css2?family=Dongle&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dongle&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:wght@300&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: #134e4a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#container {
-  position: relative;
-  width: 20vw;
-  height: 50vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  margin: auto;
-  box-sizing: border-box;
-}
-#search-box {
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.459);
-  width: 100%;
-  height: 55px;
-  display: flex;
-  align-items: center;
-  border: 1px solid #ffffff87;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
-#search-box i {
-  color: rgb(186, 186, 186);
-  font-size: 22px;
-  font-weight: 500;
-  padding-left: 20px;
-}
-#search-box input {
-  position: absolute;
-  width: 330px;
-  background-color: transparent;
-  height: 100%;
-  outline: none;
-  border: 0;
-  padding: 0 40px 0 80px;
-  border-radius: 10px;
-  color: rgb(186, 186, 186);
-  font-size: 22px;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-#search-box button {
-  position: absolute;
-  right: 0;
-  background-color: transparent;
-  width: 50px;
-  border: 0;
-}
-#search-box button svg {
-  width: 30px;
-  fill: rgb(186, 186, 186);
-}
-#weather-box {
-  position: relative;
-  width: 100%;
-  height: 85%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#temp-box {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-#temp-box-temp {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#cloud {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#temp {
-  position: relative;
-  font-size: 100px;
-  font-weight: 700;
-  line-height: 0.8;
-  padding: 0;
-}
-
-#temp-box span {
-  position: absolute;
-  font-size: 20px;
-}
-
-#temp-box i {
-  font-size: 120px;
-}
-#info-box {
-  display: flex;
-  height: 45px;
-  width: 90%;
-  justify-content: space-around;
-  align-items: center;
-  font-size: 20px;
-  font-weight: 600;
-  border: 1px solid #ffffff87;
-  border-radius: 10px;
-}
-#info-box p {
-  position: relative;
-}
-#info-box span {
-  position: absolute;
-  font-size: 17px;
-  line-height: 1.4;
-}
-#max-div {
-  display: flex;
-}
-#min-div {
-  display: flex;
-}
-#info-box i {
-  display: flex;
-  align-items: center;
-  padding-right: 5px;
-}
-#misc-info {
-  width: 100%;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-size: 20px;
-  font-weight: 600;
-}
-#wind-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #ffffff87;
-  border-radius: 10px;
-  width: 140px;
-  background-color: rgba(127, 127, 127, 0.409);
-}
-#wind-div i {
-  display: flex;
-  align-items: center;
-  padding-right: 5px;
-}
-#feel-div {
-  display: flex;
-  height: 60%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-#feel-temp {
-  position: relative;
-  font-size: 50px;
-  font-weight: 700;
-  line-height: 0.8;
-  padding: 0;
-}
-#feel-temp span {
-  position: absolute;
-  font-size: 20px;
-}
-
-@media (max-width: 768px) {
-  #container {
+@media (max-width: 1000px) {
+  body {
+    background-image: url("img/Background-unsplash.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  #shade-img {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.603);
+  }
+  #container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    border-radius: 20px;
+    box-shadow: -20px 0 20px rgba(0, 0, 0, 0.281);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+  #search-options {
+    width: 100%;
+    height: 10%;
+  }
+  #content {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  #search-option-container {
+    width: 100%;
+    height: 100%;
+  }
+  #search {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #d1d5db;
+  }
+  #search-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    outline: 0;
+    padding: 0 50px 0 50px;
+    color: #d1d5db;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  #search button {
+    display: none;
+  }
+  #search-input::placeholder {
+    color: #d1d5db;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  #search i {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    font-size: 15px;
+  }
+  #option {
+    display: none;
+  }
+  #temp-desc {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 45%;
+  }
+  #temp-info {
+    width: 100%;
+    height: 100%;
+    padding: 40px 0 0 20px;
+  }
+  #temp {
+    position: relative;
+    font-size: 120px;
+  }
+  #temp span {
+    position: absolute;
+    font-size: 50px;
+  }
+  #tem_img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 60px 30px 0 0;
+    width: 150px;
+  }
+  #desc {
+    font-size: 20px;
+    padding-top: 10px;
+    font-weight: bolder;
+  }
+  #time-date {
+    position: absolute;
+    padding: 15px 0 0 20px;
+  }
+  #timedateP span {
+    padding-left: 5px;
+  }
+  #city_name {
+    display: none;
+  }
+  #hum-win-vis {
+    display: flex;
+    width: 95%;
+    height: 10%;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+  }
+  #hum-win-vis p {
+    font-size: 10px;
+  }
+  #hum-win-vis i {
+    font-size: 10px;
+  }
+
+  #hum-win-vis div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+  }
+  #hum-win-vis span {
+    font-size: 10px;
+  }
+  #future {
+    position: relative;
+    width: 100%;
+    height: 35%;
+    display: flex;
+    justify-content: space-around;
+    align-items: end;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(15px);
+    padding-bottom: 20px;
+    border-radius: 20px;
+    border-top: 1px solid rgba(203, 203, 203, 0.638);
+
+    padding: 40px;
+    box-sizing: border-box;
+  }
+  #future div {
+    display: flex;
+    height: 100px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #future div:first-child {
+    position: absolute;
+    margin-top: 20px;
+    top: 0;
+    width: 90%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+  }
+  #future div:first-child div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+  }
+  #future div:first-child div p {
+    font-size: 12px;
+  }
+  #future div:first-child div p:first-child {
+    font-size: 15px;
+    font-weight: bolder;
+  }
+  #future div:first-child p {
+    font-size: 15px;
+  }
+  #future p {
+    font-size: 10px;
+    position: relative;
+  }
+  #future p:first-child {
+    font-size: 20px;
+  }
+
+  #future img {
+    width: 25px;
+    height: 25px;
+  }
+  #hum-win-vis p {
+    font-size: 10px;
+  }
+  #future span {
+    position: absolute;
+    font-size: 15px;
   }
 }

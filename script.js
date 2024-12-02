@@ -69,13 +69,18 @@ window.onload = function () {
   optionfetcher(shuffledcities[3]);
   optionfetcher(shuffledcities[4]);
   optionfetcher(shuffledcities[5]);
+  const inputValue = document.getElementById("search-input");
+  if (window.innerWidth < 1000) {
+    inputValue.placeholder = shuffledcities[6];
+  }
 };
 
 document.getElementById("search").addEventListener("submit", function (event) {
   event.preventDefault();
-  const inputValue = document.getElementById("search-input").value;
-  apifetcher(inputValue);
-  contentFetcher(inputValue);
+  const inputValue = document.getElementById("search-input");
+  apifetcher(inputValue.value);
+  contentFetcher(inputValue.value);
+  inputValue.value = "";
 });
 
 function formatDate() {}
@@ -219,6 +224,10 @@ function contentCreation(data, weekly) {
   const humidity = data.main.humidity;
   const visibility = data.visibility / 1000;
   const description = data.weather[0].description;
+  const inputValue = document.getElementById("search-input");
+  if (window.innerWidth < 1000) {
+    inputValue.placeholder = data.name;
+  }
 
   const timezone = data.timezone;
   const localTime = new Date((data.dt + timezone) * 1000);
@@ -248,7 +257,7 @@ function contentCreation(data, weekly) {
     const tempInfo = document.createElement("div");
     const timeDate = document.createElement("div");
     const cityName = document.createElement("p");
-
+    const tem_img = document.createElement("img");
     const timedateP = document.createElement("p");
 
     const temp = document.createElement("p");
@@ -264,10 +273,15 @@ function contentCreation(data, weekly) {
     const windI = document.createElement("i");
     const humI = document.createElement("i");
     const visI = document.createElement("i");
-    const windPText = document.createTextNode("Wind");
-    const humPText = document.createTextNode("Humity");
-    const visPText = document.createTextNode("Visiblity");
+    const windPText = document.createElement("p");
+    const humPText = document.createElement("p");
+    const visPText = document.createElement("p");
+    const tomorrow = document.createElement("p");
 
+    windPText.textContent = "Wind";
+    humPText.textContent = "Humidity";
+    visPText.textContent = "Visibility";
+    tem_img.id = "tem_img";
     cityName.id = "city_name";
     timedateP.id = "timedateP";
     windI.classList.add("fa-solid", "fa-wind");
@@ -301,6 +315,7 @@ function contentCreation(data, weekly) {
     tempDesc.appendChild(tempInfo);
     tempDesc.appendChild(timeDate);
     tempInfo.appendChild(temp);
+
     tempInfo.appendChild(desc);
     temp.appendChild(tempSpan);
     timeDate.appendChild(cityName);
@@ -319,6 +334,12 @@ function contentCreation(data, weekly) {
     visiblityDiv.appendChild(visP);
     visiblityDiv.appendChild(visI);
     visiblityDiv.appendChild(visPText);
+
+    if (window.innerWidth < 1000) {
+      tem_img.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+      tempInfo.appendChild(tem_img);
+    }
 
     let i = 0;
     let t = 0;
@@ -348,11 +369,36 @@ function contentCreation(data, weekly) {
       dayDate.textContent = `${dayOfWeek}, ${month} ${day}`;
       dayTempSpan.textContent = "°";
 
-      future.appendChild(dayDiv);
-      dayDiv.appendChild(dayTemp);
-      dayTemp.appendChild(dayTempSpan);
-      dayDiv.appendChild(dayIcon);
-      dayDiv.appendChild(dayDate);
+      if (window.innerWidth < 1000) {
+        if (i === 0) {
+          const tomorrowDesc = document.createElement("p");
+          const tomorrowDiv = document.createElement("div");
+          tomorrowDesc.textContent = weekly.list[t].weather[0].description;
+          tomorrow.textContent = "Tomorrow";
+          tomorrowDesc.id = "tomorrowDesc";
+
+          future.appendChild(dayDiv);
+          dayDiv.appendChild(dayIcon);
+          dayDiv.appendChild(tomorrowDiv);
+          tomorrowDiv.appendChild(tomorrow);
+          tomorrowDiv.appendChild(tomorrowDesc);
+          dayDiv.appendChild(dayTemp);
+          dayTemp.appendChild(dayTempSpan);
+        } else {
+          future.appendChild(dayDiv);
+          dayDiv.appendChild(dayTemp);
+          dayTemp.appendChild(dayTempSpan);
+          dayDiv.appendChild(dayIcon);
+          dayDiv.appendChild(dayDate);
+        }
+      } else {
+        future.appendChild(dayDiv);
+        dayDiv.appendChild(dayTemp);
+        dayTemp.appendChild(dayTempSpan);
+        dayDiv.appendChild(dayIcon);
+        dayDiv.appendChild(dayDate);
+      }
+
       t = t + 8;
       i++;
     }
@@ -366,6 +412,7 @@ function contentCreation(data, weekly) {
     const timedateP = document.getElementById("timedateP");
     const dateSpan = document.getElementById("date-span");
     const cityName = document.getElementById("city_name");
+    const tem_img = document.getElementById("tem_img");
     cityName.textContent = data.name;
 
     temp.textContent = Math.round(data.main.temp - 273.15);
@@ -374,44 +421,38 @@ function contentCreation(data, weekly) {
     windP.textContent = `${wind} km/h`;
     humP.textContent = `${humidity} %`;
     visP.textContent = `${visibility} km`;
+    if (window.innerWidth < 1000) {
+      tem_img.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+    }
 
     temp.appendChild(tempSpan);
     console.log("Top: ", data);
-    let timeInterval;
 
-    const testingFunction = () => {
-      const utc_seconds = Math.floor(Date.now() / 1000);
-      const local_time = new Date((utc_seconds + data.timezone) * 1000);
-      const current_time = local_time.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-        timeZone: "UTC",
-      });
+    const utc_seconds = Math.floor(Date.now() / 1000);
+    const local_time = new Date((utc_seconds + data.timezone) * 1000);
+    const current_time = local_time.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "UTC",
+    });
 
-      const current_dayOfWeek = local_time.toLocaleString("en-US", {
-        weekday: "short",
-        timeZone: "UTC",
-      });
-      const current_month = local_time.toLocaleString("en-US", {
-        month: "short",
-        timeZone: "UTC",
-      });
-      const current_day = local_time.toLocaleString("en-US", {
-        day: "numeric",
-        timeZone: "UTC",
-      });
+    const current_dayOfWeek = local_time.toLocaleString("en-US", {
+      weekday: "short",
+      timeZone: "UTC",
+    });
+    const current_month = local_time.toLocaleString("en-US", {
+      month: "short",
+      timeZone: "UTC",
+    });
+    const current_day = local_time.toLocaleString("en-US", {
+      day: "numeric",
+      timeZone: "UTC",
+    });
+    timedateP.textContent = current_time;
 
-      timeInterval = setInterval(() => {
-        timedateP.textContent = current_time;
-
-        dateSpan.textContent = `${current_dayOfWeek}, ${current_month} ${current_day}`;
-        // timedateP.appendChild(dateSpan);
-      }, 1000);
-      clearInterval(timeInterval);
-    };
-
-    testingFunction();
+    dateSpan.textContent = `${current_dayOfWeek}, ${current_month} ${current_day}`;
+    timedateP.appendChild(dateSpan);
 
     let i = 0;
     let t = 0;
@@ -419,8 +460,10 @@ function contentCreation(data, weekly) {
       const dayIcon = document.getElementById(`day${i}Icon`);
       const dayTemp = document.getElementById(`day${i}Temp`);
       const dayDate = document.getElementById(`day${i}Date`);
+      if (window.innerWidth < 1000) {
+        const tomorrowDesc = document.getElementById("tomorrowDesc");
+      }
 
-      // Convert forecast timestamp with timezone
       const forecastTime = new Date((weekly.list[t].dt + data.timezone) * 1000);
 
       const week_dayOfWeek = forecastTime.toLocaleString("en-US", {
@@ -435,7 +478,7 @@ function contentCreation(data, weekly) {
 
       dayIcon.src = `http://openweathermap.org/img/wn/${weekly.list[t].weather[0].icon}@2x.png`;
       dayTemp.textContent = `${Math.round(weekly.list[t].main.temp - 273.15)}`;
-      dayDate.textContent = `${week_dayOfWeek}, ${week_month} ${week_day}`;
+      // dayDate.textContent = `${week_dayOfWeek}, ${week_month} ${week_day}`;
       t = t + 8;
       i++;
     }
