@@ -11,11 +11,16 @@
 
 @media (min-width: 1000px) {
   body {
-    background-image: url("img/Background-unsplash.jpg");
+    background-image: url("img/background_img.jpeg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
+  }
+  #bodyShade {
+    background-color: rgba(19, 31, 13, 0.701);
     width: 100vw;
     height: 100vh;
     display: flex;

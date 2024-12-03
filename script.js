@@ -2,7 +2,91 @@ const key = "bc15f6779cb135dee27cb56d69f09ee2";
 const container = document.getElementById("container");
 const option = document.getElementById("option");
 const content = document.getElementById("content");
+const weatherDescriptions = [
+  // Group 2xx: Thunderstorm
+  {
+    description: "thunderstorm with light rain",
+    img: "img/thunderstorm_rain.jpeg",
+  },
+  { description: "thunderstorm with rain", img: "img/thunderstorm_rain.jpeg" },
+  {
+    description: "thunderstorm with heavy rain",
+    img: "img/thunderstorm_rain.jpeg",
+  },
+  { description: "light thunderstorm", img: "img/thunderstorm.jpeg" },
+  { description: "thunderstorm", img: "img/thunderstorm.jpeg" },
+  { description: "heavy thunderstorm", img: "img/thunderstorm.jpeg" },
+  { description: "ragged thunderstorm", img: "img/thunderstorm.jpeg" },
+  {
+    description: "thunderstorm with light drizzle",
+    img: "img/thunderstorm_rain.jpeg",
+  },
+  {
+    description: "thunderstorm with drizzle",
+    img: "img/thunderstorm_rain.jpeg",
+  },
+  {
+    description: "thunderstorm with heavy drizzle",
+    img: "img/thunderstorm_rain.jpeg",
+  },
 
+  // Group 3xx: Drizzle
+  { description: "light intensity drizzle", img: "img/rain.jpeg" },
+  { description: "drizzle", img: "img/rain.jpeg" },
+  { description: "heavy intensity drizzle", img: "img/rain.jpeg" },
+  { description: "light intensity drizzle rain", img: "img/rain.jpeg" },
+  { description: "drizzle rain", img: "img/rain.jpeg" },
+  { description: "heavy intensity drizzle rain", img: "img/rain.jpeg" },
+  { description: "shower rain and drizzle", img: "img/rain.jpeg" },
+  { description: "heavy shower rain and drizzle", img: "img/rain.jpeg" },
+  { description: "shower drizzle", img: "img/rain.jpeg" },
+
+  // Group 5xx: Rain
+  { description: "light rain", img: "img/rain.jpeg" },
+  { description: "moderate rain", img: "img/rain.jpeg" },
+  { description: "heavy intensity rain", img: "img/rain.jpeg" },
+  { description: "very heavy rain", img: "img/rain.jpeg" },
+  { description: "extreme rain", img: "img/rain.jpeg" },
+  { description: "freezing rain", img: "img/rain.jpeg" },
+  { description: "light intensity shower rain", img: "img/rain.jpeg" },
+  { description: "shower rain", img: "img/rain.jpeg" },
+  { description: "heavy intensity shower rain", img: "img/rain.jpeg" },
+  { description: "ragged shower rain", img: "img/rain.jpeg" },
+
+  // Group 6xx: Snow
+  { description: "light snow", img: "img/light_snow.jpeg" },
+  { description: "snow", img: "img/snow.jpeg" },
+  { description: "heavy snow", img: "img/heavy_snow.jpeg" },
+  { description: "sleet", img: "img/light_snow.jpeg" },
+  { description: "light shower sleet", img: "img/light_snow.jpeg" },
+  { description: "shower sleet", img: "img/light_snow.jpeg" },
+  { description: "light rain and snow", img: "img/rain_snow.jpeg" },
+  { description: "rain and snow", img: "img/rain_snow.jpeg" },
+  { description: "light shower snow", img: "img/snow.jpeg" },
+  { description: "shower snow", img: "img/snow.jpeg" },
+  { description: "heavy shower snow", img: "img/snow.jpeg" },
+
+  // Group 7xx: Atmosphere
+  { description: "mist", img: "img/mist.jpeg" },
+  { description: "smoke", img: "" },
+  { description: "haze", img: "" },
+  { description: "sand/ dust whirls", img: "" },
+  { description: "fog", img: "" },
+  { description: "sand", img: "" },
+  { description: "dust", img: "" },
+  { description: "volcanic ash", img: "" },
+  { description: "squalls", img: "" },
+  { description: "tornado", img: "" },
+
+  // Group 800: Clear
+  { description: "clear sky", img: "img/clear_sky.jpeg" },
+
+  // Group 80x: Clouds
+  { description: "few clouds", img: "img/few_clouds.jpeg" },
+  { description: "scattered clouds", img: "img/scattered_clouds.jpeg" },
+  { description: "broken clouds", img: "img/broken_clouds.jpeg" },
+  { description: "overcast clouds", img: "img/overcast_clouds.jpeg" },
+];
 const cities = [
   "New York",
   "Los Angeles",
@@ -100,13 +184,21 @@ function apifetcher(city) {
       const rainyBg = 'url("img/rainy.jpg")';
       const snowyBg = 'url("img/snow-pixel.jpg")';
       const sunyBg = 'url("img/sunny.jpg")';
-      if (temC < 11) {
-        container.style.backgroundImage = snowyBg;
-      } else if (temC > 10 && temC < 16) {
-        container.style.backgroundImage = rainyBg;
-      } else if (temC > 15) {
-        container.style.backgroundImage = sunyBg;
-      }
+      weatherDescriptions.forEach((element) => {
+        if (element.description === data.weather[0].description) {
+          if (element.img) {
+            container.style.backgroundImage = `url(${element.img})`;
+          } else {
+            if (temC < 11) {
+              container.style.backgroundImage = snowyBg;
+            } else if (temC > 10 && temC < 16) {
+              container.style.backgroundImage = rainyBg;
+            } else if (temC > 15) {
+              container.style.backgroundImage = sunyBg;
+            }
+          }
+        }
+      });
     })
     .catch((err) => {
       console.error(
