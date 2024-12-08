@@ -145,6 +145,7 @@ const cities = [
 container.style.height = screen.height * 0.8 + "px";
 const shuffler = cities.sort(() => 0.5 - Math.random());
 const shuffledcities = shuffler.slice(0, 7);
+let SData;
 window.onload = function () {
   contentFetcher(shuffledcities[6]);
   apifetcher(shuffledcities[6]);
@@ -278,7 +279,6 @@ function optionCreation(city, temperture, highT, lowT) {
   optionCity.appendChild(cityText);
 
   option1.addEventListener("click", (event) => {
-    console.log("clicked");
     apifetcher(city);
     contentFetcher(city);
   });
@@ -302,6 +302,7 @@ function contentFetcher(city) {
   ])
     .then(([currentData, weeklyData]) => {
       contentCreation(currentData, weeklyData);
+      SData = currentData;
     })
     .catch((err) => {
       console.error(
@@ -321,21 +322,22 @@ function contentCreation(data, weekly) {
     inputValue.placeholder = data.name;
   }
 
-  const timezone = data.timezone;
-  const localTime = new Date((data.dt + timezone) * 1000);
+  const utc_seconds = Math.floor(Date.now() / 1000);
+  const localTime = new Date((utc_seconds + data.timezone) * 1000);
 
-  const time = localTime.toLocaleTimeString("en-US", {
+  const time = localTime.toLocaleTimeString("UTC", {
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit",
     hour12: true,
     timeZone: "UTC",
   });
 
-  const month = localTime.toLocaleString("en-US", {
+  const month = localTime.toLocaleString("UTC", {
     month: "short",
     timeZone: "UTC",
   });
-  const dayOfWeek = localTime.toLocaleString("en-US", {
+  const dayOfWeek = localTime.toLocaleString("UTC", {
     weekday: "short",
     timeZone: "UTC",
   });
@@ -503,6 +505,9 @@ function contentCreation(data, weekly) {
     const visP = document.querySelector("#visiblity p");
     const timedateP = document.getElementById("timedateP");
     const dateSpan = document.getElementById("date-span");
+    timedateP.textContent = time;
+    dateSpan.textContent = `${dayOfWeek}, ${month} ${day}`;
+    timedateP.appendChild(dateSpan);
     const cityName = document.getElementById("city_name");
     const tem_img = document.getElementById("tem_img");
     cityName.textContent = data.name;
@@ -518,33 +523,6 @@ function contentCreation(data, weekly) {
     }
 
     temp.appendChild(tempSpan);
-    console.log("Top: ", data);
-
-    const utc_seconds = Math.floor(Date.now() / 1000);
-    const local_time = new Date((utc_seconds + data.timezone) * 1000);
-    const current_time = local_time.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-      timeZone: "UTC",
-    });
-
-    const current_dayOfWeek = local_time.toLocaleString("en-US", {
-      weekday: "short",
-      timeZone: "UTC",
-    });
-    const current_month = local_time.toLocaleString("en-US", {
-      month: "short",
-      timeZone: "UTC",
-    });
-    const current_day = local_time.toLocaleString("en-US", {
-      day: "numeric",
-      timeZone: "UTC",
-    });
-    timedateP.textContent = current_time;
-
-    dateSpan.textContent = `${current_dayOfWeek}, ${current_month} ${current_day}`;
-    timedateP.appendChild(dateSpan);
 
     let i = 0;
     let t = 0;
@@ -574,7 +552,40 @@ function contentCreation(data, weekly) {
       t = t + 8;
       i++;
     }
-
-    console.log("Else");
   }
 }
+
+function timeDate() {
+  setInterval(() => {
+    const timedateP = document.getElementById("timedateP");
+    const dateSpan = document.getElementById("date-span");
+    const utc_seconds = Math.floor(Date.now() / 1000);
+    const local_time = new Date((utc_seconds + SData.timezone) * 1000);
+    const current_time = local_time.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+      timeZone: "UTC",
+    });
+
+    const current_dayOfWeek = local_time.toLocaleString("en-US", {
+      weekday: "short",
+      timeZone: "UTC",
+    });
+    const current_month = local_time.toLocaleString("en-US", {
+      month: "short",
+      timeZone: "UTC",
+    });
+    const current_day = local_time.toLocaleString("en-US", {
+      day: "numeric",
+      timeZone: "UTC",
+    });
+    timedateP.textContent = current_time;
+
+    dateSpan.textContent = `${current_dayOfWeek}, ${current_month} ${current_day}`;
+    timedateP.appendChild(dateSpan);
+  }, 1000);
+}
+
+timeDate();
